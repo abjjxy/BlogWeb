@@ -27,9 +27,11 @@
         />
       </el-select>
     </div>
-
+    <div v-if="loading" class="grid gap-6">
+      <el-skeleton v-for="i in 5" :key="i" :rows="3" animated />
+    </div>
     <!-- 博客列表 -->
-    <div class="grid gap-6">
+    <div v-else class="grid gap-6">
       <el-card 
         v-for="blog in blogList" 
         :key="blog.id" 
@@ -136,8 +138,16 @@ const handlePageChange = (val) => {
 }
 
 // 初始化
-onMounted(() => {
-  fetchCategories()
-  fetchBlogs()
+// onMounted(() => {
+//   fetchCategories()
+//   fetchBlogs()
+// })
+
+//优化
+onMounted(async()=>{
+  await Promise.all([
+    fetchCategories(),
+    fetchBlogs()
+  ])
 })
 </script>
