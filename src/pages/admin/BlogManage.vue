@@ -124,7 +124,11 @@ const handlePageChange = (val) => {
 
 // 初始化
 onMounted(() => {
-  fetchCategories()
-  fetchBlogs()
+  async()=>{
+    await Promise.all([
+    fetchCategories(),
+    fetchBlogs()
+    ])
+  }
 })
 </script>
